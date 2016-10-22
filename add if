@@ -1,9 +1,8 @@
-user = input('請輸入1~49')
-  print(user)
-  
-if  (int(user) < 1 ):
-  print('輸入錯誤')
-elif (int(user) > 49):
-  print('輸入錯誤')
+user_a =input('請輸入1~49:')
+
+if int(user_a) < 1:
+    print(user_a + ' < 1')
+elif int(user_a) > 49:
+    print(user_a + ' > 49')
 else:
-  pass
+    print(user_a)
