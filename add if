@@ -1,8 +1,23 @@
-user_a =input('請輸入1~49:')
+import random
+a = random.sample(range(50),7)
+aa=a[0:6]
+special = a[-1]
+
+print(aa)
+print(a)
+print(special)
+voluntary = random.sample(range(50),6)
+print(voluntary)
+
+user_a = input('請輸入1~49任意六個數字:')
+
+
 
 if int(user_a) < 1:
     print(user_a + ' < 1')
 elif int(user_a) > 49:
-    print(user_a + ' > 49')
-else:
-    print(user_a)
+    print(user_a + ' > 49 ')
+else
+    a = string(a)
+    aa = string(aa)
+    special = string(special)
