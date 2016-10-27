@@ -1,23 +1,42 @@
 import random
-a = random.sample(range(50),7)
-aa=a[0:6]
-special = a[-1]
+ans = random.sample(range(1,50),7) #系統隨機取7個亂數
 
-print(aa)
-print(a)
-print(special)
-voluntary = random.sample(range(50),6)
-print(voluntary)
+user_a = input('手動1自動2') #詢問user
 
-user_a = input('請輸入1~49任意六個數字:')
+if user_a == '1':
+	
+	total = 1 #輸入總數
+	i = 1
+	
+	user_num = input('your number {0} , or \'x\' for exit '.format(total))
+		
+	while i < 6:  #輸入的值<6
+		user_num = input('your number {0} , or \'x\' for exit '.format(total))
+		list = [user_num] #把輸入的值放入陣列
+		
+		if int(user_num) < 1 or int(user_num) > 49:
+			
+			print('輸入錯誤~')
+			continue #跳出本次循環
+			
+		#elif int(user_num) == int(user_num):
+		# 	print('輸入重複~')
+		else:
+			i += 1
+			print(i)
+		
+			
+		
+	# while list(total) <6:
 
-
-
-if int(user_a) < 1:
-    print(user_a + ' < 1')
-elif int(user_a) > 49:
-    print(user_a + ' > 49 ')
-else
-    a = string(a)
-    aa = string(aa)
-    special = string(special)
+		# if user_num == 'x':
+		# 	exit()
+	
+	
+		
+		
+		
+else:
+	
+	user_num = random.sample(range(1,50),6)
+	print(user_num)
