@@ -1,7 +1,6 @@
+
 import random
 a_list = random.sample(range(1,50),7) #系統隨機取7個亂數
-# a_list = []
-# a_list.append(ans)
 
 print(a_list)
 
@@ -16,11 +15,11 @@ if user == '1':
 
     while i < 6:  #輸入的次數<6
         user_num = input('your number {0} , or \'x\' for exit '.format(total))
-         
+        user_num = int(user_num)
         if user_num == 'x' or user_num == 'X':
             exit() #離開程序
 
-        elif int(user_num) < int(1) or int(user_num) > int(49):
+        elif user_num < int(1) or user_num > int(49):
             print('輸入錯誤~')
             continue #跳出本次循環
   
@@ -35,21 +34,15 @@ if user == '1':
 
 
 else:
-    user_num = random.sample(range(1,50),6)
-    u_list.append(user_num)
-    print(u_list)
+    u_list = random.sample(range(1,50),6)
+    
 
-
-
-
-print(u_list)
-# print(ans)
 count = 0
 
 for j in u_list:
     if j in a_list:
         count += 1
-        print(count)
+        
 
 if count == 6:
     print('恭喜中頭獎')
