@@ -1,15 +1,18 @@
 import random
-ans = random.sample(range(1,50),7) #系統隨機取7個亂數
-# ans_list = []
-# ans_list.append(ans)
-print(ans)
+a_list = random.sample(range(1,50),7) #系統隨機取7個亂數
+# a_list = []
+# a_list.append(ans)
+
+print(a_list)
 
 user = input('手動1,自動2') #詢問user
+
+u_list = [] 
 
 if user == '1':
     i = 0
     total = 1 #輸入總數
-    list = [] 
+    
 
     while i < 6:  #輸入的次數<6
         user_num = input('your number {0} , or \'x\' for exit '.format(total))
@@ -21,11 +24,11 @@ if user == '1':
             print('輸入錯誤~')
             continue #跳出本次循環
   
-        elif user_num in list:
+        elif user_num in u_list:
             print('輸入重複請重新輸入')
                 
         else:
-            list.append(user_num) #把輸入的值加入陣列
+            u_list.append(user_num) #把輸入的值加入陣列
             i += 1 
             total += 1
             continue  
@@ -33,24 +36,24 @@ if user == '1':
 
 else:
     user_num = random.sample(range(1,50),6)
-    list.append(user_num)
-    print(user_num)
+    u_list.append(user_num)
+    print(u_list)
 
 
 
+
+print(u_list)
+# print(ans)
 count = 0
 
-print(list)
-print(ans)
-
-for j in list:
-    if j in ans:
+for j in u_list:
+    if j in a_list:
         count += 1
-        
-#             if count == 6:
-#                 print('恭喜中頭獎')
-            
-print('本期開獎碼是：{0}'.format(ans))
-print('您選的號碼是：{0}'.format(list))
-print('猜中{0}個號碼：'.format(count))
-  
+        print(count)
+
+if count == 6:
+    print('恭喜中頭獎')
+else:
+    print('本期開獎碼是：{0}'.format(a_list))
+    print('您選的號碼是：{0}'.format(u_list))
+    print('猜中 {0} 個號碼：'.format(count))
