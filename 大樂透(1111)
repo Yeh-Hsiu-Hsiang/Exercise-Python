@@ -3,7 +3,7 @@ a_list = random.sample(range(1,50),7) #系統隨機取7個亂數
 
 print(a_list)
 
-user = input('手動1,自動2') #詢問user
+user = input('手動1,自動為任意值') #詢問user
 
 u_list = [] 
 
