@@ -11,7 +11,7 @@ if user == '1':
     i = 0
     total = 1 #輸入總數
 
-    while i < 6:  #輸入的次數<6
+    while i < 7:  #輸入的次數<6
         user_num = input('your number {0} , or \'x\' for exit '.format(total))
         # user_num = int(user_num)
         if user_num == 'x' or user_num == 'X':
@@ -37,7 +37,7 @@ if user == '1':
             continue
 
 else:
-    u_list = random.sample(range(1,50),6)
+    u_list = random.sample(range(1,50),7)
     
 
 count = 0
@@ -46,9 +46,9 @@ for j in u_list:
     if j in a_list:
         count += 1
 
-if count == 6:
+if count == 7:
     print('恭喜中頭獎')
 else:
-    print('本期開獎碼是：{0}'.format(a_list))
-    print('您選的號碼是：{0}'.format(u_list))
+    print('本期開獎碼是：{0}'.format(sorted(a_list)))
+    print('您選的號碼是：{0}'.format(sorted(u_list)))
     print('猜中 {0} 個號碼：'.format(count))
