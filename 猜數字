@@ -4,33 +4,39 @@ a_list = random.sample(range(0,9),4)    #隨機取亂數
 print(a_list)
 
 user_num = input('請輸入四個不重複的數字')
+u_list = []
+a = 0
+b = 0
+times = 1   #輸入次數
 
-if len(user_num) != 4:
-    print('輸入錯誤')
+while(a_list != user_num):
 
-else:
-    while(user_num != a_list):
+    if len(user_num) != 4:
+        print('輸入錯誤')
+        continue
+    elif user_num != int(user_num):
+        print('請輸入數值')
+        continue
+    else:
         try:
-            u_list = []
-            u_list.append(user_num.split()) #把值加入陣列
-            a = 0
-            b = 0
-            times = 1   #輸入次數
-            print(u_list)
+            for j in user_num:
+                u_list.append(int(j)) #把值加入陣列
+                
+                print(u_list)
 
             for i in range(4):
                 if a_list[i] == user_num[i]:
                     a += 1
                     times += 1
                     continue
-                if user_num in a_list:
+                if u_list[i] in a_list:
                     b += 1
                     times += 1
                     continue  
-            break
-                # if user_num[i] in u_list:
-                #     print('輸入重複請重新輸入')
-                #     continue
+
+#                 # if user_num[i] in u_list:
+#                 #     print('輸入重複請重新輸入')
+#                 #     continue
             print(user_num[i])
             print(a,b-a)
             times += 1    
@@ -40,9 +46,6 @@ else:
             print('輸入錯誤')
             continue
 
-# if count == 6:
-#     print('答對啦~')
-# else:
 #     print('Answer：{0}'.format(a_list))
 #     print('you\'\'re：{0}'.format(u_list))
 #     print('共猜{0}次 ：'.format(times))
