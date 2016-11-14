@@ -1,0 +1,57 @@
+import random
+a_list = random.sample(range(0,9),4)    #隨機取亂數
+
+print(a_list)
+
+user_num = 0
+a = 0
+b = 0
+times = 0   #輸入次數
+
+while(a_list != user_num):
+    
+    user_num = input('請輸入四個不重複的數字，按Q離開')
+
+    if  user_num == 'q' or user_num == 'Q':
+        exit()
+    elif len(user_num) != 4:
+        print('輸入錯誤')
+        continue
+    else:
+        try:
+            int(user_num)
+            u_list = []
+            
+            for j in user_num:
+                if j not in u_list:
+                    u_list.append(j) #把值加入陣列
+                    
+                    for i in u_list:
+                        if i in a_list:
+                            b += 1
+                            continue
+                        elif i == a_list:
+                            a += 1
+                            continue
+                        else:
+                            continue
+                    
+                else:
+                    print('輸入重複')  
+
+            times += 1
+            print(a)
+            print(b-a)
+            print(times) 
+
+                
+
+#             # print(user_num[i])
+#             # print(a,b-a)
+           
+        except ValueError:
+            print('請輸入數值')
+            continue
+
+    print('Answer：{0}'.format(a_list))
+    print('共猜{0}次 ：'.format(times))
