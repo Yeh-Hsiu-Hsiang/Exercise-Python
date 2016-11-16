@@ -30,34 +30,27 @@ while(a_list != user_num):
                     print('輸入重複')
                     break
 
-            for i in range(4):
-                if u_list[i] in a_list:
-                    if u_list[i] == a_list[i]:
-                        a += 1
-                        continue
-                    else:
-                        b += 1
-                        continue  
-            if a == 4:
-                print('恭喜答對~')
-                print('Answer：{0}'.format(a_list))
-                print('共猜{0}次 ：'.format(times))
-                break
+            if len(u_list) != 4:
+                continue
             else:
-                print(str(a) + 'A', str(b) + 'B')
-
-            times += 1
-            
-            print(times) 
-            print(u_list)
+                for i in range(4):
+                    if u_list[i] in a_list:
+                        if u_list[i] == a_list[i]:
+                            a += 1
+                            continue
+                        else:
+                            b += 1
+                            continue
+                times += 1    
+                          
+                if a == 4:
+                    print('恭喜答對~')
+                    print('Answer：{0}'.format(a_list))
+                    print('共猜{0}次 ：'.format(times))
+                    break
+                else:
+                    print(str(a) + 'A', str(b) + 'B')
  
         except ValueError:
             print('請輸入數值')
             continue
-else:
-    times += 1
-    print('哇!你是神人~')
-    print('Answer：{0}'.format(a_list))
-    print('共猜{0}次 ：'.format(times))
-
-
