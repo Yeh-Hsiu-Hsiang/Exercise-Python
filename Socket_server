@@ -3,10 +3,10 @@ HOST = '127.0.0.1'
 PORT = 7000
 
 try:
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-except socket.error as msg:
-    sys.stderr.write('[ERROR] %s\n' % msg[1])
-    sys.exit(1)
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #creat socket
+except socket.error:
+    sys.stderr.write('[ERROR]') #create socket failed 
+    sys.exit()
 
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) #重設tcp
 server.bind((HOST, PORT)) #綁定IP
@@ -17,12 +17,22 @@ print('Server start at: %s:%s' %(HOST, PORT))
 print('wait for connection...')
 
 while True: #持續接收
-    (client, addr) = server.accept() #接收client
+    (client, addr) = server.accept() #接收client訊息
     print('Client by ', addr)
+    data = client.recv(1024) #接收字元
 
-    while True:
-        data = client.recv(1024) #接收字元
-        print(data)
-        client.send("server received you message.")
+    if not data:
+        pass
+    else:
+        print('Client send:' + data.decode("utf-8"))
 
-# client.close()
+        try:
+            info = input('Please input your info')
+            server.send(info.encode('utf-8'))
+        except socket.error:
+            print('Send failed')
+            sys.exit()
+        print('Send successfully')  
+
+client.close()
+server.close()
