@@ -1,0 +1,34 @@
+import socket,sys
+HOST = '127.0.0.1'
+PORT = 7000
+
+try:
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+except socket.error:
+    sys.stderr.write("Create failed")
+    sys.exit()
+
+client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) #重設tcp
+
+try:
+    while True:
+        client.connect((HOST,PORT))
+        user_num = input("請輸入四個不重複的數字，按Q離開")
+        
+        if user_num == 'q' or user_num == 'Q':
+            break
+        # elif len(user_num) != 4:
+        #     print('輸入錯誤')
+        #     continue 
+        else:
+            client.sendall(user_num.encode('utf-8')) #傳回
+            user_num = client.recv(1024)
+            print(user_num.decode("utf-8"))
+    
+except socket.error:
+    sys.stderr.write("Can't connect to server, try it latter!")
+    exit()
+
+    
+
+client.close()
