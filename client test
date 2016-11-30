@@ -8,27 +8,38 @@ except socket.error:
     sys.stderr.write("Create failed")
     sys.exit()
 
-client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) #重設tcp
+client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 0) #重設tcp
+client.connect((HOST,PORT))
+while True:
+    user_num = input("請輸入四個不重複的數字，按Q離開")
+    
+    try:
 
-try:
-    while True:
-        client.connect((HOST,PORT))
-        user_num = input("請輸入四個不重複的數字，按Q離開")
-        
         if user_num == 'q' or user_num == 'Q':
             break
-        # elif len(user_num) != 4:
-        #     print('輸入錯誤')
-        #     continue 
+        elif len(user_num) != 4:
+            print('輸入錯誤')
+            continue 
         else:
-            client.sendall(user_num.encode('utf-8')) #傳回
-            user_num = client.recv(1024)
-            print(user_num.decode("utf-8"))
-    
-except socket.error:
-    sys.stderr.write("Can't connect to server, try it latter!")
-    exit()
 
-    
+            try:
+                int(user_num)
+                client.send(user_num.encode('utf-8')) #傳回
+                user_num = client.recv(1024)
+                print(user_num.decode("utf-8"))
+                
+                if user_num.decode("utf-8") == '恭喜答對  ':
+                    continue
+                exit()    
+                if user_num.decode('utf-8') == '輸入重複':
+                    continue
+                
+            except ValueError:
+                print('請輸入正確數值')
+                continue
+                
+    except socket.error as msg:
+        sys.stderr.write("Can't connect to server, try it latter!")
+        exit()
 
-client.close()
+# client.close()
