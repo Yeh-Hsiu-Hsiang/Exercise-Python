@@ -3,14 +3,8 @@ import random
 HOST = '127.0.0.1'
 PORT = 7000
 
-a_list = random.sample(range(0,9),4)    #隨機取亂數
-user_num = 0
-times = 0   #輸入次數
-
 try:
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #creat socket
-    print('Server start at: %s:%s' %(HOST, PORT))
-    print('wait for connection...')
 
 except socket.error:
     sys.stderr.write("Create failed") #create socket failed 
@@ -23,67 +17,67 @@ server.listen(5) #監聽(最多可有()人連線)
 
 while True: #持續接收
     
+    a_list = random.sample(range(0,9),4)    #隨機取亂數
+    times = 0   #輸入次數
+    print(a_list)
+
+    print('Server start at: %s:%s' %(HOST, PORT))
+    print('wait for connection...')
+
     (client, addr) = server.accept() #接收client訊息
     print('Client by ', addr)
-    user_num = client.recv(1024) #接收字元
 
-while(a_list != user_num):
-    if user_num == 'q' or user_num == 'Q':
-        break
-    elif len(user_num) != 4:
-        client.sendall('輸入錯誤'.encode('utf-8'))
-        continue
-    else:
-        try:
-            print('Client send:' + user_num.decode("utf-8"))
-            int(user_num)
-            u_list = []
-            a = 0
-            b = 0
+    while True:
+        user_num = client.recv(1024) #接收字元
 
-            for j  in map(int,user_num):
-                if j not in u_list:
-                    u_list.append(j) #把值加入陣列
+        if not user_num:
+            break
+        else:
+            try:
+                print('Client send:' + user_num.decode("utf-8"))
+                user_num = user_num.decode("utf-8")
+                int(user_num)
+                print(user_num)
+                u_list = []
+                a = 0
+                b = 0
+
+                for j  in map(int,user_num):
+                    if j not in u_list:
+                        u_list.append(j) #把值加入陣列
+                        continue
+                    else:
+                        client.sendall('輸入重複'.encode('utf-8'))
+                        continue
+
+                if len(u_list) != 4:
                     continue
                 else:
-                    client.sendall('輸入重複'.encode('utf-8'))
-                    break
+                    for i in range(4):
+                        if u_list[i] in a_list:
+                            # print(u_list[i])
+                            if u_list[i] == a_list[i]:
+                                a += 1
+                                continue
+                            else:
+                                b += 1
+                                continue
+                    times += 1     
+                    print(str(a) +'A' , str(b) +'B')        
+                
+                    if a == 4:
+                        client.sendall('恭喜答對~  '.encode('utf-8') +
+                                        '  Answer:{0}'.format(a_list).encode('utf-8') +
+                                        '  共猜{0}次'.format(times).encode('utf-8'))
+                        break
+                    else:
+                
+                # client.sendall((str(a) + 'A' , str(b) + 'B').encode('utf-8'))
+                        client.sendall((str(a) +'A').encode('utf-8') + (str(b) +'B').encode('utf-8')) 
+                # client.sendall((b +'B')).encode('utf-8'))
 
-            if len(u_list) != 4:
+            except ValueError:
+                client.sendall('請輸入數值'.encode('utf-8'))
                 continue
-            else:
-                for i in range(4):
-                    if u_list[i] in a_list:
-                        if u_list[i] == a_list[i]:
-                            a += 1
-                            continue
-                        else:
-                            b += 1
-                            continue
-                times += 1    
-                          
-                if a == 4:
-                    client.sendall('恭喜答對~'.encode('utf-8'))
-                    client.sendall('Answer：{0}'.format(a_list).encode('utf-8'))
-                    client.sendall('共猜{0}次 ：'.format(times).encode('utf-8'))
-                    break
-                else:
-                    client.sendall((str(a) + 'A', str(b) + 'B').encode('utf-8'))
 
-        except ValueError:
-            client.sendall('請輸入數值'.encode('utf-8'))
-            continue
-
-
-
-           
-
-
-            try:
-                client.sendall(info.encode('utf-8'))
-            except socket.error:
-                print('Send failed')
-                sys.exit()
-            print('Send successfully')  
-
-# client.close()
+    # client.close()
