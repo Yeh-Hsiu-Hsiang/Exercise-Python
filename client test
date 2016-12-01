@@ -27,17 +27,17 @@ while True:
                 client.send(user_num.encode('utf-8')) #傳回
                 user_num = client.recv(1024)
                 print(user_num.decode("utf-8"))
-                
-                if user_num.decode("utf-8") == '恭喜答對  ':
-                    continue
-                exit()    
-                if user_num.decode('utf-8') == '輸入重複':
-                    continue
-                
+
             except ValueError:
                 print('請輸入正確數值')
                 continue
-                
+
+            if user_num.decode('utf-8') == '輸入重複':
+                continue
+
+            if len(user_num.decode('utf-8'))>5:
+                break
+            # exit()
     except socket.error as msg:
         sys.stderr.write("Can't connect to server, try it latter!")
         exit()
