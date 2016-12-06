@@ -41,6 +41,7 @@ while True: #持續接收
             print('Server start at: %s:%s' %(HOST, PORT))
             print('wait for connection...')
             (client, addr) = server.accept() #接收client訊息
+            client.sendall('開始連線'.encode('utf-8'))
             print('Client by ', addr)
         
             while True:
@@ -92,7 +93,8 @@ while True: #持續接收
                             print(str(a) +'A' , str(b) +'B')        
                 
                             if a == 4:
-                                client.sendall('恭喜答對~  '.encode('utf-8') +
+                                client.sendall('game over  '.encode('utf-8') +
+                                     '恭喜答對~  '.encode('utf-8') +
                                         '  Answer:{0}'.format(a_list).encode('utf-8') +
                                         '  共猜{0}次'.format(times).encode('utf-8'))
                                 exit()
