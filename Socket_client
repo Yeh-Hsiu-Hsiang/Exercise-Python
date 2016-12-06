@@ -8,7 +8,7 @@ except socket.error:
     sys.stderr.write("Create failed")
     sys.exit()
 
-client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 0) #重設tcp
+client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) #重設tcp
 
 try:
     client.connect((HOST,PORT))
@@ -31,14 +31,8 @@ while True:
         try:
             int(user_num)
             client.send(user_num.encode('utf-8')) #傳回
-            client.settimeout(5) #閒置時間
-            
-            try:
-                user_num = client.recv(1024)
-                print(user_num.decode("utf-8"))
-            except ConnectionAbortedError:
-                print('連線逾時')
-                exit()
+            user_num = client.recv(1024)
+            print(user_num.decode("utf-8"))
 
         except ValueError:
             print('請輸入正確數值')
