@@ -1,1 +1,3 @@
-this a test.
+import tkinter
+win=tkinter.Tk()
+win.mainloop()
