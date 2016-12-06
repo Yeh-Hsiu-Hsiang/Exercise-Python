@@ -9,37 +9,46 @@ except socket.error:
     sys.exit()
 
 client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 0) #重設tcp
-client.connect((HOST,PORT))
-while True:
-    user_num = input("請輸入四個不重複的數字，按Q離開")
-    
-    try:
 
-        if user_num == 'q' or user_num == 'Q':
-            break
-        elif len(user_num) != 4:
-            print('輸入錯誤')
-            continue 
-        else:
-
-            try:
-                int(user_num)
-                client.send(user_num.encode('utf-8')) #傳回
-                user_num = client.recv(1024)
-                print(user_num.decode("utf-8"))
-
-            except ValueError:
-                print('請輸入正確數值')
-                continue
-
-            if user_num.decode('utf-8') == '輸入重複':
-                continue
-
-            if len(user_num.decode('utf-8'))>5:
-                break
-            # exit()
-    except socket.error as msg:
+try:
+    client.connect((HOST,PORT))
+except ConnectionRefusedError:
         sys.stderr.write("Can't connect to server, try it latter!")
         exit()
+
+while True:
+    
+    user_num = input("請輸入四個不重複的數字，按Q離開")
+
+    if user_num == 'q' or user_num == 'Q':
+        client.send(user_num.encode('utf-8'))
+        break
+    if len(user_num) != 4:
+        print('輸入錯誤')
+        continue 
+    else:
+
+        try:
+            int(user_num)
+            client.send(user_num.encode('utf-8')) #傳回
+            client.settimeout(5) #閒置時間
+            
+            try:
+                user_num = client.recv(1024)
+                print(user_num.decode("utf-8"))
+            except ConnectionAbortedError:
+                print('連線逾時')
+                exit()
+
+        except ValueError:
+            print('請輸入正確數值')
+            continue
+
+        if user_num.decode('utf-8') == '輸入重複':
+            continue
+
+        if len(user_num.decode('utf-8'))>5:
+            break
+            # exit()
 
 # client.close()
