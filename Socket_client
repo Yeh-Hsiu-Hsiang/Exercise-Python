@@ -15,13 +15,14 @@ try:
 except ConnectionRefusedError:
         sys.stderr.write("Can't connect to server, try it latter!")
         exit()
-
+print(client.recv(1024).decode())
 while True:
     
     user_num = input("請輸入四個不重複的數字，按Q離開")
 
     if user_num == 'q' or user_num == 'Q':
         client.send(user_num.encode('utf-8'))
+        print('exit')
         break
     if len(user_num) != 4:
         print('輸入錯誤')
