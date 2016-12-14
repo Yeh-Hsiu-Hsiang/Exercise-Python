@@ -1,0 +1,32 @@
+import tkinter
+
+# us_in = input('Please input string:')
+# if us_in.upper() == 'Q':
+#     print('Exit')
+#     exit() 
+# else:
+#     print('Hello, world')
+
+test = tkinter.Tk()
+test.title('Hello')
+a_Lb = tkinter.Label(test,text ='Welcome', width = '10', height = '10')
+a_Lb.pack(side = 'top', padx = 3, pady = 3)
+
+b_Bt = tkinter.Button(test,text='exit',command = 'exit')
+b_Bt.pack(side = 'bottom', fill = 'both' ,expand = 2 , padx = 5, pady = 5)
+
+c_tb = tkinter.Entry(test, text = 'input',width = 10)
+c_tb.pack(side = 'top', padx = 5, pady = 5)
+
+d_Bt = tkinter.Button(test, text='Enter',command = 'action')
+d_Bt.pack(side = 'top', fill = 'both', expand = 2, padx = 5, pady = 5)
+
+def action():
+    test2.tkinter.Tk()
+    for i in range(3):
+        test = Toplevel(test)
+        makemenu(test)
+        Label(test, bg ='black', height = 5, width = 15).pack(expand='yes', fill='both')
+test.mainloop()
+
+ 
