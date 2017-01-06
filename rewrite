@@ -1,0 +1,70 @@
+import random
+
+def Computer_contrast():
+    Ans = Answer()
+    user_Answer = Answer()
+    count = 0
+
+    for contrast in user_Answer:
+        if contrast in Ans:
+            count += 1
+
+    return '獎號' + str(sorted(Ans)) + '\n選號' + str(sorted(user_Answer)) +'\n共猜中' + str(count) + '個'
+
+
+def Answer():
+    Answer = random.sample(range(1, 50), 7)
+    return Answer
+
+
+def user_input():
+    user_Answer = input('Please input seven numbers(用空白隔開數字): ').split()
+    count = 0
+    numbers = []
+
+    try:  
+        if len(user_Answer) != 7 :
+            print('input len mistake')
+            exit()
+        else:    
+            for number in user_Answer:
+                if 0 < int(number) < 50 :
+                    number = int(number)
+                    
+                    if number not in numbers:
+                        numbers.append(number)
+                    else:
+                        print('Repeat input')
+                        exit()
+                
+                else:
+                    print('too large or small')
+                    exit()
+        
+        Ans = Answer()
+        
+        for contrast in numbers:
+            contrast = int(contrast)
+            
+            if contrast in Ans:
+                count += 1    
+
+        return '獎號' + str(sorted(Ans)) + '\n選號' + str(sorted(numbers)) +'\n共猜中' + str(count) + '個'
+    
+    except ValueError:
+        print('input mistake')
+    except UnboundLocalError:
+        print('input mistake')
+
+# main.class
+
+Question = input('Computer(C) or youself(Y) select or Exit(E)?')
+    
+if Question == 'C' or Question == 'c':
+    print(Computer_contrast())
+elif Question == 'Y' or Question == 'y':
+    print(user_input())
+elif Question == 'E' or Question =='e':
+    exit()
+else:
+    print('mistake input')
